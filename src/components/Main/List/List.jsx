@@ -8,7 +8,20 @@ const List = () => {
     const classes = useStyles()
 
     const transactions = [
-        {id: 1, type:'Income', category: 'Salary', amount:50, date: new Date()}
+        {
+            id: 1, 
+            type:'Income', 
+            category: 'Salary', 
+            amount:50, 
+            date: new Date()
+        },
+        {
+            id: 2, 
+            type:'Expense', 
+            category: 'Pets', 
+            amount:50, 
+            date: new Date()
+        }
     ];
 
     return (
@@ -21,7 +34,7 @@ const List = () => {
                             <MoneyOff/>
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={transaction.category} secondary={'$${transaction.amount} - ${transaction.date}'}/>
+                    <ListItemText primary={transaction.category} secondary={'$${transaction.amount} - {transaction.date}'} />
                     <ListItemSecondaryAction>
                         <IconButton edge='end' aria-label="delete" onClick="">
                             <Delete />
