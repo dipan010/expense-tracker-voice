@@ -2,6 +2,7 @@ import React from 'react'
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
 import useStyles from './styles'
+
 const Form = () => {
     const classes = useStyles()
     return (
@@ -16,7 +17,7 @@ const Form = () => {
                     <InputLabel> Type </InputLabel>
                     <Select>
                         <MenuItem value="Income"> Income </MenuItem>
-                        <MenuItem value="Expense"> </MenuItem>
+                        <MenuItem value="Expense"> Expense </MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
