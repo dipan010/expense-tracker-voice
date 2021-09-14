@@ -6,7 +6,7 @@ import useStyles from './styles'
 
 const List = () => {
     const classes = useStyles()
-
+  
     const transactions = [
         {
             id: 1, 
