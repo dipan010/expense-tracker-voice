@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { 
+        TextField, 
+        Typography, 
+        Grid, 
+        Button, 
+        FormControl, 
+        InputLabel, 
+        Select, 
+        MenuItem 
+    } from '@material-ui/core'
 import { ExpenseTrackerContext } from '../../../context/context'
 import { v4 as uuidv4 } from 'uuid'
 import { useSpeechContext } from '@speechly/react-client'
@@ -8,7 +17,6 @@ import formatDate from '../../../utils/formatDate'
 import { incomeCategories, expenseCategories } from '../../../constants/categories' 
 
 import useStyles from './styles'
-import { Category } from '@material-ui/icons'
 import CustomSnackbar from '../../Snackbar/Snackbar'
 
 const initialState = {
