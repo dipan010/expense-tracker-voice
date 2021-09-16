@@ -7,7 +7,7 @@ const useTransactions = (title) =>{
     resetCategories()
     const  { transactions } = useContext(ExpenseTrackerContext)
     const transactionsPerType = transactions.filter((t) => t.type === title)
-    const total = selectedCategories.reduce((acc, cuurVal) => acc += cuurVal.amount, 0)
+    const total = transactionsPerType.reduce((acc, cuurVal) => acc += cuurVal.amount, 0)
     const categories = title === 'Income' ? incomeCategories : expenseCategories
 
     console.log({transactionsPerType, total, categories})
@@ -28,7 +28,7 @@ const useTransactions = (title) =>{
         labels: filteredCategories.map((c) => c.type)
     }
 
-    return { filteredCategories, total, chartData } 
+    return { total, chartData } 
 } 
 
 export default useTransactions;
