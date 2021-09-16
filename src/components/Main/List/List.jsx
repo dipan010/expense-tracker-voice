@@ -7,27 +7,9 @@ import useStyles from './styles'
 
 const List = () => {
     const classes = useStyles()
-    const { deleteTransaction } = useContext(ExpenseTrackerContext);
+    const { deleteTransaction, transactions } = useContext(ExpenseTrackerContext);
 
-    console.log(deleteTransaction)
-
-    const transactions = [
-        {
-            id: 1, 
-            type:'Income', 
-            category: 'Salary', 
-            amount:50, 
-            date: new Date()
-        },
-        {
-            id: 2, 
-            type:'Expense', 
-            category: 'Pets', 
-            amount:50, 
-            date: new Date()
-        }
-    ];
-
+    
     return (
         <MUList dense={false} className={classes.list}>
             {transactions.map((transaction) => (
@@ -38,7 +20,7 @@ const List = () => {
                             <MoneyOff/>
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={transaction.category} secondary={'$${transaction.amount} - {transaction.date}'} />
+                    <ListItemText primary={transaction.category} secondary={'$${transaction.amount} - ${transaction.date}'} />
                     <ListItemSecondaryAction>
                         <IconButton edge='end' aria-label="delete" onClick="">
                             <Delete />
