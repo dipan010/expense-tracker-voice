@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { ExpenseTrackerContext } from '../../../context/context'
 import { v4 as uuidv4 } from 'uuid'
@@ -27,6 +27,40 @@ const Form = () => {
         addTransaction(transaction)
         setFormData(initialState)
     }
+
+    useEffect(() => {
+        if(segment){
+            if(segment.intent.intent === 'add_expense'){
+                setFormData({ ...formData, type: 'Expense' })
+            } else if(segment.intent.intent === 'add_income'){
+                setFormData({ ...formData, type: 'Income' })
+            } else if(segment.isFinal && segment.intent.intent === "create_transaction"){
+                return createTransaction();
+            } else if(segment.isFinal && segment.intent.intent === "cancel_transaction"){
+                return setFormData(initialState)
+            }
+
+            segment.entities.forEach((e) =>{
+                const category = `${e.value.charAt(0)}${e.value.slice(1).toLowerCase()}`
+                switch(e.type){
+                    case 'amount':
+                        setFormData({ ...formData, amount: e.value })
+                        break;
+                    
+                    case 'category':
+                        setFormData({ ...formData, category })
+                        break;
+
+                    case 'date':
+                        setFormData({ ...formData, date:e.value })
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+        }
+    }, [segment])
 
     const selectedCategories = formData.type === 'Income'? incomeCategories : expenseCategories
 
@@ -122,7 +156,7 @@ const Form = () => {
             > Create 
             </Button>
         </Grid>
-    )
+     )
 }
 
 export default Form
