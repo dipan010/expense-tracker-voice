@@ -1,9 +1,12 @@
 import React from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
-import { mergeClasses } from '@material-ui/styles'
+
+import useStyles from './styles'
 
 const CustomSnackbar = ({ open, setOpen }) => {
+
+    const classes = useStyles()
 
     const handleClose = (event, reason) =>{
         if(reason === 'clickaway') return
@@ -14,8 +17,13 @@ const CustomSnackbar = ({ open, setOpen }) => {
     return (
         <div className={classes.root}>
             <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={true}
+                anchorOrigin={
+                    {
+                        vertical: 'top', 
+                        horizontal: 'right'
+                    }
+                }
+                open={open}
                 autoHideDuration={3000}
                 onClose={handleClose}
             >
@@ -32,4 +40,4 @@ const CustomSnackbar = ({ open, setOpen }) => {
     )
 }
 
-export default Snackbar
+export default CustomSnackbar

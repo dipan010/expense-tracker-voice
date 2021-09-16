@@ -8,6 +8,8 @@ import formatDate from '../../../utils/formatDate'
 import { incomeCategories, expenseCategories } from '../../../constants/categories' 
 
 import useStyles from './styles'
+import { Category } from '@material-ui/icons'
+import CustomSnackbar from '../../Snackbar/Snackbar'
 
 const initialState = {
     amount: '',
@@ -21,9 +23,12 @@ const Form = () => {
     const [formData, setFormData] = useState(initialState)
     const { addTransaction } = useContext(ExpenseTrackerContext)
     const { segment } = useSpeechContext()
+    const [open, setOpen] = useState(false)
 
     const createTransaction = () => {
+        if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
+        setOpen(true)
         addTransaction(transaction)
         setFormData(initialState)
     }
@@ -48,7 +53,11 @@ const Form = () => {
                         break;
                     
                     case 'category':
-                        setFormData({ ...formData, category })
+                        if(incomeCategories.map((iC) => iC.type).includes(category)){
+                        setFormData({ ...formData, type:'Income', category })
+                    } else if(expenseCategories.map((iC)=> iC.type).includes(category)){
+                        setFormData({ ...formData, type:'Expense', category })
+                    }
                         break;
 
                     case 'date':
@@ -59,6 +68,10 @@ const Form = () => {
                         break;
                 }
             });
+
+            if(segment.isFinal && formData.amount && formData.category && formData.type && formData.date ){
+                createTransaction()
+            }
         }
     }, [segment])
 
@@ -68,6 +81,7 @@ const Form = () => {
 
     return (
         <Grid container spacing={2}>
+            <CustomSnackbar open={open} setOpen={setOpen}/>
             <Grid item xs={12}>
                 <Typography align="center" variant="subtitle2" gutterBottom> 
                     {segment ?(
