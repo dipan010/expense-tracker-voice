@@ -3,14 +3,16 @@ import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, M
 import { ExpenseTrackerContext } from '../../../context/context'
 import { v4 as uuidv4 } from 'uuid'
 
-import useStyles from './styles'
+import formatDate from '../../../utils/formatDate'
 import { incomeCategories, expenseCategories } from '../../../constants/categories' 
+
+import useStyles from './styles'
 
 const initialState = {
     amount: '',
     category: '',
     type: '',
-    date: new Date(),
+    date: formatDate(new Date()),
 }
 
 const Form = () => {
@@ -100,7 +102,7 @@ const Form = () => {
                     setFormData( 
                         {
                             ...formData, 
-                            date: e.target.value
+                            date: formatDate(e.target.value)
                         }
                     )}
                 />
