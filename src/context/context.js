@@ -17,6 +17,8 @@ export const Provider = ({ children }) => {
         dispatch({ type: 'ADD_TRANSACTION', payload: transaction })
     }
 
+    const balance = transactions.reduce((acc, currVal) => (currVal.type === 'Income' ? acc+ currVal.amount : acc - currVal.amount), 0)
+
     console.log(transactions)
 
     return (
@@ -24,7 +26,8 @@ export const Provider = ({ children }) => {
             {
                 deleteTransaction,
                 addTransaction,
-                transactions 
+                transactions,
+                balance
             }
          }>
             { children }
